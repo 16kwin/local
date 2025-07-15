@@ -32,7 +32,7 @@ public class EmployeeService {
     @Value("http://192.168.88.7:8080/api/employees")
     private String serverApiEmployeeUrl;
 
-    @Scheduled(fixedRate = 300000, initialDelay = 5000) // Run every 5 minutes after 5 seconds
+    @Scheduled(fixedRate = 18000000, initialDelay = 5000) // Run every 5 minutes after 5 seconds
     @Transactional
     public void syncEmployees() {
         try {

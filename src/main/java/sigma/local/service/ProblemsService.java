@@ -33,7 +33,7 @@ public class ProblemsService {
     @Value("http://192.168.88.7:8080/api/problems") // Change to the problems URL
     private String serverApiProblemsUrl;
 
-    @Scheduled(fixedRate = 300000, initialDelay = 5000) // Run every 5 minutes after 5 seconds
+    @Scheduled(fixedRate = 18000000, initialDelay = 5000) // Run every 5 minutes after 5 seconds
     @Transactional
     public void synchronizeProblems() {
         try {
