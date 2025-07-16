@@ -28,7 +28,7 @@ public class SyncService {
     private final RestTemplate restTemplate;
     private final PlanRepository planRepository;
 
-    @Value("http://192.168.88.7:8080/api/plan") // Inject URL from application.properties
+    @Value("http://83.219.12.178:8080/api/plan") // Inject URL from application.properties
     private String serverApiUrl;
 
     public SyncService(RestTemplate restTemplate, PlanRepository planRepository) {

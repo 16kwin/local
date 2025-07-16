@@ -29,7 +29,7 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @Value("http://192.168.88.7:8080/api/employees")
+    @Value("http://83.219.12.178:8080/api/employees")
     private String serverApiEmployeeUrl;
 
     @Scheduled(fixedRate = 18000000, initialDelay = 5000) // Run every 5 minutes after 5 seconds

@@ -30,7 +30,7 @@ public class ProblemsService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("http://192.168.88.7:8080/api/problems") // Change to the problems URL
+    @Value("http://83.219.12.178:8080/api/problems") // Change to the problems URL
     private String serverApiProblemsUrl;
 
     @Scheduled(fixedRate = 18000000, initialDelay = 5000) // Run every 5 minutes after 5 seconds
