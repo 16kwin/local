@@ -56,7 +56,7 @@ public class EmployeeService {
             //    - Берём только с specialization = "Полное ППП"
             //    - Специальность берём из поля specialty
             List<Employee> employeesToSave = Arrays.stream(response.getBody())
-                .filter(dto -> "Полное ППП".equals(dto.getSpecialization()))
+                .filter(dto -> " Подготовка к ППП".equals(dto.getSpecialization()))
                 .map(dto -> {
                     Employee emp = new Employee();
                     emp.setEmployeeName(dto.getEmployeeName());
