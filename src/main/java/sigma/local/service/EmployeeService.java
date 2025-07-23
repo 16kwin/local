@@ -3,7 +3,6 @@ package sigma.local.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -29,56 +28,51 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @Value("http://83.219.12.178:8080/api/employees")
-    private String serverApiEmployeeUrl;
+    // URL остаётся внутри файла (как было)
+    private final String serverApiEmployeeUrl = "http://83.219.12.178:8080/api/employees";
 
-    @Scheduled(fixedRate = 18000000, initialDelay = 5000) // Run every 5 minutes after 5 seconds
+    // Изменили интервал на 6 часов (21600000 мс)
+    @Scheduled(fixedRate = 21600000, initialDelay = 5000)
     @Transactional
     public void syncEmployees() {
         try {
-            log.info("=== Starting Employee Synchronization (Full Refresh) ===");
+            log.info("=== Starting Employee Synchronization (Только 'Полное ППП') ===");
 
-            // 1. Delete all existing records
-            log.info("Deleting all existing records from the local database...");
-            employeeRepository.deleteAllInBatch(); // Use deleteAllInBatch for efficiency
+            // 1. Удаляем старые записи
+            employeeRepository.deleteAllInBatch();
 
-            // 2. Get data from the server
-            ResponseEntity<EmployeeDTO[]> response = restTemplate.getForEntity(serverApiEmployeeUrl, EmployeeDTO[].class);
+            // 2. Получаем данные с сервера
+            ResponseEntity<EmployeeDTO[]> response = restTemplate.getForEntity(
+                serverApiEmployeeUrl, 
+                EmployeeDTO[].class
+            );
 
             if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
-                log.error("Failed to get employees from server. Status: {}", response.getStatusCode());
+                log.error("Ошибка при запросе к API. Статус: {}", response.getStatusCode());
                 return;
             }
 
-            EmployeeDTO[] employeeData = response.getBody();
-            log.debug("Received {} employee records from server", employeeData.length);
-
-            // 3. Convert DTOs to entities
-            List<Employee> employeesToSave = Arrays.stream(employeeData)
-                .map(this::convertToLocalEntity)
+            // 3. Фильтруем и конвертируем:
+            //    - Берём только с specialization = "Полное ППП"
+            //    - Специальность берём из поля specialty
+            List<Employee> employeesToSave = Arrays.stream(response.getBody())
+                .filter(dto -> "Полное ППП".equals(dto.getSpecialization()))
+                .map(dto -> {
+                    Employee emp = new Employee();
+                    emp.setEmployeeName(dto.getEmployeeName());
+                    emp.setSpecialization(dto.getSpecialty()); // Берём только из specialty!
+                    return emp;
+                })
                 .collect(Collectors.toList());
 
-            // 4. Save all new records
-            log.info("Saving {} new records...", employeesToSave.size());
-            employeeRepository.saveAll(employeesToSave); // Save all at once
-            log.info("Successfully synchronized {} employee records", employeesToSave.size());
+            // 4. Сохраняем
+            employeeRepository.saveAll(employeesToSave);
+            log.info("Добавлено {} сотрудников с 'Полное ППП'.", employeesToSave.size());
 
         } catch (DataAccessException e) {
-            log.error("Database access error during employee synchronization: {}", e.getMessage(), e);
+            log.error("Ошибка БД: {}", e.getMessage(), e);
         } catch (Exception e) {
-            log.error("Error during employee synchronization: {}", e.getMessage(), e);
+            log.error("Ошибка синхронизации: {}", e.getMessage(), e);
         }
-    }
-
-    private Employee convertToLocalEntity(EmployeeDTO dto) {
-        Employee employee = new Employee();
-
-        String specializationValue = (dto.getSpecialty() != null && !dto.getSpecialty().isEmpty()) ?
-            dto.getSpecialty() : dto.getSpecialization();
-
-        employee.setEmployeeName(dto.getEmployeeName());
-        employee.setSpecialization(specializationValue);
-
-        return employee;
     }
 }
