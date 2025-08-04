@@ -37,7 +37,7 @@ public class SyncService {
         log.info("SyncService initialized!");
     }
 
-    @Scheduled(fixedRate = 18000000, initialDelay = 5000)  // Run every 5 minutes after a 5-second delay
+    @Scheduled(fixedRate = 1800000, initialDelay = 5000)  // Run every 5 minutes after a 5-second delay
     @Transactional
     public void syncDataFullRefresh() {
         try {

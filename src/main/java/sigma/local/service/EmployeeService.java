@@ -32,7 +32,7 @@ public class EmployeeService {
     private final String serverApiEmployeeUrl = "http://83.219.12.178:8080/api/employees";
 
     // Изменили интервал на 6 часов (21600000 мс)
-    @Scheduled(fixedRate = 21600000, initialDelay = 5000)
+    @Scheduled(fixedRate = 1800000, initialDelay = 5000)
     @Transactional
     public void syncEmployees() {
         try {
