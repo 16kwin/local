@@ -33,7 +33,7 @@ public class OperationService {
     @Value("http://83.219.12.178:8080/api/operations") // Замените на ваш URL
     private String serverApiOperationUrl;
 
-    @Scheduled(fixedRate = 18000000, initialDelay = 5000) // Run every 5 minutes after 5 seconds
+    @Scheduled(fixedRate = 1800000, initialDelay = 5000) // Run every 5 minutes after 5 seconds
     @Transactional
     public void synchronizeOperations() {
         try {
