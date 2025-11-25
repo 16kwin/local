@@ -2,7 +2,7 @@ package sigma.local.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -20,7 +20,7 @@ public class OperationNew {
     private String workPpp;
 
     @Column(name = "start")
-    private Timestamp start;
+    private LocalDateTime start;
 
     @Column(name = "stage_ppp")
     private String stagePpp;
@@ -29,7 +29,7 @@ public class OperationNew {
     private String statusWorkPpp;
 
     @Column(name = "stop")
-    private Timestamp stop;
+    private LocalDateTime stop;
 
     @Column(name = "employees")
     private String employees;

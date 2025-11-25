@@ -2,7 +2,7 @@ package sigma.local.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 public class OperationNewDTO {
@@ -17,7 +17,7 @@ public class OperationNewDTO {
     private String workPpp;
 
     @JsonProperty("start")
-    private Timestamp start;
+    private LocalDateTime start;
 
     @JsonProperty("stagePpp")
     private String stagePpp;
@@ -26,7 +26,7 @@ public class OperationNewDTO {
     private String statusWorkPpp;
 
     @JsonProperty("stop")
-    private Timestamp stop;
+    private LocalDateTime stop;
 
     @JsonProperty("employees")
     private String employees;
@@ -43,6 +43,6 @@ public class OperationNewDTO {
         private String workPpp;
 
         @JsonProperty("start")
-        private Timestamp start;
+        private LocalDateTime start;
     }
 }
