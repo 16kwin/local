@@ -19,7 +19,7 @@ public class Problems {
     @Column(name = "type")
     private String type;
     
-    @Column(name = "description", length = 1000)
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
     
     @Column(name = "norm_hours")
