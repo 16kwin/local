@@ -1,13 +1,12 @@
 package sigma.local.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name="problems")
-public class Problems{
+public class Problems {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
@@ -19,12 +18,13 @@ public class Problems{
 
     @Column(name = "type")
     private String type;
-    @Column(name = "description")
+    
+    @Column(name = "description", length = 1000)
     private String description;
     
     @Column(name = "norm_hours")
     private Double hours; 
 
-     @Column(name = "employee")
+    @Column(name = "employee")
     private String employee;
 }
