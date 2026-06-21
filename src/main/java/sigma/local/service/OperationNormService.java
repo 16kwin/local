@@ -27,7 +27,7 @@ public class OperationNormService {
     @Autowired
     private OperationNormRepository operationNormRepository;
 
-    private final String serverApiOperationNormUrl = "http://83.219.12.178:8080/api/operationsnorm";
+    private final String serverApiOperationNormUrl = "http://localhost:8080/api/operationsnorm";
 
     @Scheduled(fixedRate = 3000000, initialDelay = 10000)
     @Transactional

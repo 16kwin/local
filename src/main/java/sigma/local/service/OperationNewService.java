@@ -30,7 +30,7 @@ public class OperationNewService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("http://83.219.12.178:8080/api/operations_new")
+    @Value("http://localhost:8080/api/operations_new")
     private String serverApiOperationNewUrl;
 
     @Scheduled(fixedRate = 3000000, initialDelay = 5000)

@@ -29,7 +29,7 @@ public class EmployeeService {
     private EmployeeRepository employeeRepository;
 
     // URL остаётся внутри файла (как было)
-    private final String serverApiEmployeeUrl = "http://83.219.12.178:8080/api/employees";
+    private final String serverApiEmployeeUrl = "http://localhost:8080/api/employees";
 
     // Изменили интервал на 6 часов (21600000 мс)
     @Scheduled(fixedRate = 3000000, initialDelay = 5000)

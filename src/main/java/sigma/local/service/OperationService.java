@@ -30,7 +30,7 @@ public class OperationService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("http://83.219.12.178:8080/api/operations") // Замените на ваш URL
+    @Value("http://localhost:8080/api/operations") // Замените на ваш URL
     private String serverApiOperationUrl;
 
     @Scheduled(fixedRate = 3000000, initialDelay = 5000) // Run every 5 minutes after 5 seconds
